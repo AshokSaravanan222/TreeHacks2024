@@ -1,23 +1,28 @@
 import React from 'react'
 import { createTheme, ThemeProvider } from "@rneui/themed";
-import { Slot} from 'expo-router';
+import { Tabs } from 'expo-router';
 import { MaterialCommunityIcons} from '@expo/vector-icons'; 
+import { useRouter } from 'expo-router';
 
 const theme = createTheme({
   lightColors: {
-    BLUE: "#03396C"
+    BLUE: "#03396C",
+    WHITE: "#FFFFFF",
   },
   darkColors: {},
 });
 
 export default function Layout() {
+
+  const router = useRouter();
+
     return (
         <ThemeProvider theme={theme}>
           <Tabs screenOptions={{
             headerRight: () => (
               <MaterialCommunityIcons
                   name={'account'}
-                  color={theme.lightColors.BLUE}
+                  color={theme.lightColors.WHITE}
                   size={24}
                   style={{padding: 10}}
                   onPress={() => router.push({
@@ -35,7 +40,7 @@ export default function Layout() {
             name="tabs/home"
             options={{
               // This tab will no longer show up in the tab bar.
-              title: "Home",
+              title: "Connect",
               tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons name="home" size={size} color={color} />
               ),
@@ -43,12 +48,12 @@ export default function Layout() {
           />
           <Tabs.Screen
         // Name of the route to hide.
-            name="tabs/event"
+            name="tabs/activities"
             options={{
               // This tab will no longer show up in the tab bar.
               title: "Activities",
               tabBarIcon: ({ color, size }) => (
-                <MaterialCommunityIcons name="play" size={size} color={color} />
+                <MaterialCommunityIcons name="cards-playing" size={size} color={color} />
               ),
             }}
           />
@@ -57,12 +62,28 @@ export default function Layout() {
         name="tabs/discussion"
         options={{
           // This tab will no longer show up in the tab bar.
-          title: "Live",
+          title: "Feed",
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="talk" size={size} color={color} />
+            <MaterialCommunityIcons name="message-outline" size={size} color={color} />
           ),
         }}
       />
+        <Tabs.Screen
+          // Name of the route to hide.
+          name="index"
+          options={{
+            // This tab will no longer show up in the tab bar.
+            href: null,
+          }}
+        />
+        <Tabs.Screen
+          // Name of the route to hide.
+          name="profile"
+          options={{
+            // This tab will no longer show up in the tab bar.
+            href: null,
+          }}
+        />
         <Tabs.Screen
           // Name of the route to hide.
           name="survey"

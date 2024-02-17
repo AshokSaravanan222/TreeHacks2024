@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {useState} from 'react';
 import { Text, Button, Dialog, Input} from '@rneui/themed'
-import { FlatList, SafeAreaView } from 'react-native'
+import { FlatList, SafeAreaView, View} from 'react-native'
 import { useRouter } from 'expo-router'
 import ActivityCard from '../../../components/common/activityCard/ActivityCard'
 

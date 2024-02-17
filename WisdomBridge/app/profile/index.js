@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Text } from '@rneui/themed';
 import { useLocalSearchParams } from 'expo-router';
-import { Avatar, Button, Dialog} from '@rneui/themed';
-import { StyleSheet } from 'react-native';
+import { Avatar, Button, Dialog, Input} from '@rneui/themed';
+import { StyleSheet, ScrollView, View} from 'react-native';
 
 const Profile = () => {
 
@@ -22,20 +22,20 @@ const Profile = () => {
 
   return (
     <ScrollView>
-      {/* in the middle */}
-      <Avatar 
+      
+      <Avatar // in the middle
           size={64}
           rounded
-          title={name.slice(0, 2)}
+          title={name?.slice(0, 2)}
           containerStyle={{ backgroundColor: '#3d4db7' }}
         />
-      <View> {/* on left hand side*/}
-        <Text style={styles.name}>Name: {name}</Text>
-        <Text style={styles.age}>Age: {age}</Text>
-        <Text style={styles.number}>Phone Number: {phoneNumber}</Text>
+      <View>
+        <Text style={styles.name}>{`Name: ${name}`}</Text>
+        <Text style={styles.age}>{`Age: ${age}`}</Text>
+        <Text style={styles.number}>{`Phone Number: ${phoneNumber}`}</Text>
       </View>
 
-      <View> {/* on right hand side*/}
+      <View>
         <Button
           title={'Connect'}
           onPress={toggleDialog1}
@@ -63,9 +63,8 @@ const Profile = () => {
           />
         </Dialog>
       </View>
-
-      {/* in the middle side*/}
-      <Text style={styles.bio}>Bio: {bio}</Text>
+      
+      <Text style={styles.bio}>{`Bio: ${bio}`}</Text>
     </ScrollView>
   )
 }

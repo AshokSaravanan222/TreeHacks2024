@@ -3,6 +3,7 @@ import { Text } from '@rneui/themed';
 import Component from "../../../components/MyComponent";
 import { SafeAreaView, FlatList } from 'react-native';
 import ProfileCard from '../../../components/common/profileCard/ProfileCard';
+import { useRouter } from 'expo-router';
 
 const profileData = {"items" : [
   {
@@ -25,11 +26,17 @@ const profileData = {"items" : [
 }
 
 const Home = () => {
+
+  const router = useRouter();
+
   return (
     <SafeAreaView>
       <FlatList 
         data = {profileData.items}
-        renderItem={({item}) => <ProfileCard profile={item}/>}
+        renderItem={({item}) => <ProfileCard profile={item} onPress={() => router.push({
+          pathname: "profile",
+          params: {id: item.id, name: item.name, age: item.age, phoneNumber: item.phoneNumber, phoneNumber: item.phoneNumber, bio: item.bio}
+      })}/>}
         keyExtractor={item => item.id}
         ListHeaderComponent={
           <Text>These are the profiles</Text>

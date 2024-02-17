@@ -4,9 +4,9 @@ import { Text, Button} from '@rneui/base'
 
 import { useRouter } from 'expo-router'
 
-const Intro = () => {
+const Survey = () => {
 
-    const router = useRouter();
+  const router = useRouter();
 
   return (
     <View style={{flex: 1,
@@ -21,4 +21,4 @@ const Intro = () => {
   )
 }
 
-export default Intro
+export default Survey;

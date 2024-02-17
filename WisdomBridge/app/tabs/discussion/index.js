@@ -1,7 +1,6 @@
-import React from 'react'
-import { Text } from '@rneui/themed'
+import React, {useState} from 'react';
 import { Text, Button, Dialog, Input} from '@rneui/themed'
-import { FlatList, SafeAreaView } from 'react-native'
+import { FlatList, SafeAreaView, View } from 'react-native'
 
 import QuestionCard from '../../../components/common/questionCard/QuestionCard'
 import { router } from 'expo-router'
@@ -42,6 +41,10 @@ const Discussion = () => {
       setVisible1(!visible1);
     };
 
+    async function addQuestion() {
+        // call the api to add
+    }
+
   return (
     <SafeAreaView>
       <FlatList 
@@ -50,7 +53,7 @@ const Discussion = () => {
             pathname: "profile",
             params: {id: item.profile.id, name: item.profile.name, age: item.profile.age, phoneNumber: item.profile.phoneNumber, phoneNumber: item.profile.phoneNumber, bio: item.profile.bio}
         })}/>}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.profile.id}
         ListHeaderComponent={
           <Text>These are the discussions</Text>
         }
@@ -73,7 +76,7 @@ const Discussion = () => {
               <Button 
                 onPress={() => {
                   toggleDialog1();
-                  addActivity()
+                  addQuestion()
                 }}
               />
             </Dialog>
