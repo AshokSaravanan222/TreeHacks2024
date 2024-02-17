@@ -4,7 +4,7 @@ import { Text, Button} from '@rneui/base'
 
 import { useRouter } from 'expo-router'
 
-const Intro = () => {
+const Audio = () => {
 
     const router = useRouter();
 
@@ -21,4 +21,4 @@ const Intro = () => {
   )
 }
 
-export default Intro
+export default Audio
