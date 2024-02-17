@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text } from '@rneui/themed';
-import Component from "../../../components/MyComponent"
+import Component from "../../../components/MyComponent";
 
 const Home = () => {
   return (

@@ -1,8 +1,11 @@
 import React from "react";
 import { View } from "react-native";
-import { makeStyles, Text, Button, useThemeMode } from "@rneui/themed";
+import { makeStyles, Text, Button, useThemeMode, } from "@rneui/themed";
+import { useLocalSearchParams } from "expo-router";
 
-export default function App() {
+export default function App({text}) {
+
+
   const styles = useStyles();
   const { setMode, mode } = useThemeMode();
 
@@ -16,6 +19,7 @@ export default function App() {
       <Text style={styles.text}>
         Open up App.jsx to start working on your app!
       </Text>
+      <Text>{text}</Text>
       <Button onPress={handleOnPress}>Switch Theme</Button>
     </View>
   );
