@@ -1,84 +1,121 @@
 import React, {useState} from 'react';
 import { Text } from '@rneui/themed';
 import { useLocalSearchParams } from 'expo-router';
-import { Avatar, Button, Dialog, Input} from '@rneui/themed';
-import { StyleSheet, ScrollView, View} from 'react-native';
+import { Avatar, Button, Dialog, Input, Tile, Icon} from '@rneui/themed';
+import { StyleSheet, ScrollView, View, SafeAreaView, FlatList, Image} from 'react-native';
+import { COLORS, FONT, SIZES} from '../../constants';
+
+const activites = {"items": [{
+  "date" : "02-05-03",
+  "name" : "Picnic",
+  "imgUrl" : "https://awildgeographer.files.wordpress.com/2015/02/john_muir_glacier.jpg"
+},
+{
+  "date" : "02-05-03",
+  "name" : "Picnic",
+  "imgUrl" : "https://awildgeographer.files.wordpress.com/2015/02/john_muir_glacier.jpg"
+}]}
 
 const Profile = () => {
   const params = useLocalSearchParams();
   const {id, name, status, age, zipCode, phoneNumber, hobbies, curiosities, pastActivities} = params;
 
-  const [visible1, setVisible1] = useState(false);
-  const [connectMessage, setConnectMessage] = useState("Hey")
+  const hobbiesArr = hobbies.split(",");
+  const curiositiesArr = curiosities.split(",");
 
-  const toggleDialog1 = () => {
-    setVisible1(!visible1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [btnTitle, setBtnTitle] = useState("Connect")
+  const [buttonColor, setButtonColor] = useState(COLORS.secondary); // Default color
+
+  const handlePress = async () => {
+    setIsLoading(true); // Start loading
+    // Simulate an API call
+    setTimeout(() => {
+      setIsLoading(false); // Stop loading
+      setBtnTitle("Pending");
+      setButtonColor(COLORS.tertiary); // Change color to green (or any other color) after finishing
+    }, 2000); // Simulate API delay
   };
 
-  async function addMessage() {
-    // call the api to add
-  }
+  const Item = ({ title, date, imgUrl }) => (
+    <View style={styles.itemContainer}>
+      {imgUrl ? (
+        <Image
+          source={{ uri: imgUrl }}
+          style={styles.activityImage}
+          resizeMode="cover"
+        />
+      ) : null}
+      <View style={styles.itemTextContainer}>
+        <Text style={styles.itemTitle}>{title}</Text>
+        <Text style={styles.itemDate}>{date}</Text>
+      </View>
+    </View>
+  );
+  
 
   return (
-    <ScrollView>
-      
-      <Avatar // in the middle
-          size={64}
-          title={name?.slice(0, 2)}
-          containerStyle={{ backgroundColor: '#3d4db7' }}
-          style={styles.avatar}
+    <SafeAreaView>
+      <ScrollView>
+      <View style={styles.personalContainer}>
+        <Avatar // in the middle
+            size={128}
+            title={name?.slice(0, 2)}
+            containerStyle={styles.avatar}
         />
-      <View>
         <Text style={styles.name}>{`${name}`}</Text>
         <Text style={styles.status}>{`${status}`}</Text>
         <Text style={styles.age}>{`Age: ${age}`}</Text>
-        <Text style={styles.number}>{`Phone Number: ${phoneNumber}`}</Text>
+        {/* <Text style={styles.number}>{`Phone Number: ${phoneNumber}`}</Text> */}
       </View>
 
-      <View>
-        <Text style={styles.category}>{`Hobbies`}</Text>
-        <Text style={styles.tags}>{`${hobbies}`}</Text>
-        <Text style={styles.category}>{`Curiosities`}</Text>
-        <Text style={styles.tags}>{`${curiosities}`}</Text>
-      </View>
+      <View style={styles.infoContainer}>
+        <Text style={styles.category}>Hobbies</Text>
+        {/* Container for hobbies tags */}
+        <View style={styles.tagsContainer}>
+          {hobbiesArr.map((hobby, index) => (
+            <Text key={index} style={styles.tags}>{hobby.trim()}</Text>
+          ))}
+        </View>
 
-      <View>
+        <Text style={styles.category}>Curiosities</Text>
+        {/* Container for curiosities tags */}
+        <View style={styles.tagsContainer}>
+          {curiositiesArr.map((curiosity, index) => (
+            <Text key={index} style={styles.tags}>{curiosity.trim()}</Text>
+          ))}
+        </View>
+
+        <View style={styles.pastActivities}>
         <Text style={styles.category}>{`Past Activities`}</Text>
-        <Text style={styles.pastActivities}>{`${pastActivities}`}</Text>
+        <FlatList
+          data={activites.items}
+          renderItem={({item}) => <Item title={item.name} date={item.date} imgUrl={item.imgUrl} />}
+          horizontal
+        />
+      </View>
       </View>
 
-      <View>
-        <Button
-          title={'Connect'}
-          onPress={toggleDialog1}
-          buttonStyle={styles.connectButton}
-          containerStyle={{
-            width: 200,
-            marginHorizontal: 50,
-            marginVertical: 10,
-          }}
-        />
-        <Dialog
-          isVisible={visible1}
-          onBackdropPress={toggleDialog1}
-          overlayStyle={styles.dialogStyle}
-        >
-          <Dialog.Title title="Message to Connect"/>
-          <Input
-            placeholder="Message"
-            leftIcon={{ type: 'font-awesome', name: 'comment' }}
-            onChangeText={value => setConnectMessage(value)}
-          />
-          <Button 
-            onPress={() => {
-              toggleDialog1();
-              addMessage()
-            }}
-          />
-        </Dialog>
+
+      <View style={styles.personalContainer}>
+      <Button
+        buttonStyle={{ width: 250, height: 50, backgroundColor: buttonColor }}
+        containerStyle={{ margin: 5, borderRadius: 10 }}
+        disabledStyle={{
+          borderWidth: 2,
+          borderColor: COLORS.tertiary
+        }}
+        disabledTitleStyle={{ color: COLORS.tertiary }}
+        iconContainerStyle={{ background: '#000' }}
+        loading={isLoading} // Use the isLoading state
+        onPress={handlePress} // Use the new handlePress function
+        title={btnTitle} // Hide title when loading
+        titleStyle={{ marginHorizontal: 5 }}
+      />
       </View>
       
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
@@ -86,27 +123,25 @@ export default Profile;
 
 const styles = StyleSheet.create({
   avatar: {
-    // top: 58,
-    // left: 118,
-    width: 152,
-    height: 155,
-    borderRadius: 76,
-    background:'rgba(254,223,205,1)',
+    backgroundColor: COLORS.primary,
+    borderRadius: 100
   },
-  status: {
-    // top: 70,
-    left: 134,
-    width: 141.5,
-    height: 37.5,
-    overflow: 'hidden',
-    fontFamily: 'Inter',
-    fontSize: 25,
-    fontWeight: 'bold',
-    textAlign: 'left',
-    color:'rgba(0,0,0,1)',
+  personalContainer: {
+    flex: 1, // Use flex to enable flexible box layout
+    justifyContent: 'center', // Center content vertically in the container
+    alignItems: 'center', // Center content horizontally in the container
+    paddingTop: 20
+    // Add any other styles for the container here (e.g., backgroundColor)
+  },
+  infoContainer: {
+    // Add padding inside the container to separate the content from its borders
+    padding: 20,
+    // Add margin outside the container to separate it from other elements or the screen's edge
+    margin: 10,
+    // Optionally, you can specify marginTop, marginBottom, marginLeft, marginRight for specific directions
   },
   name: {
-    fontSize: 24, // larger font size for better readability
+    fontSize: SIZES.xLarge, // larger font size for better readability
     fontWeight: 'bold', // make the name stand out
     marginTop: 20, // add space at the top for clarity
     alignSelf: 'center', // center align the name
@@ -148,6 +183,46 @@ const styles = StyleSheet.create({
   },
   dialogStyle: {
     padding: 20, // padding inside the dialog
+  },
+  tags: {
+    backgroundColor: COLORS.primary, // Use the primary color from your constants
+    paddingHorizontal: 8, // Use minimal horizontal padding
+    paddingVertical: 4, // Use minimal vertical padding for spacing
+    margin: 5, // Optional: add margin to separate it from other components
+    borderRadius: 5, // Optional: add rounded corners for a smoother look
+    borderWidth: 1, // Add a border for the bordered look
+    borderColor: 'rgba(0, 0, 0, 0.1)', // Slightly visible border
+    alignSelf: 'flex-start', // Align to the start of the flex container
+  },
+  tagsContainer: {
+    flexDirection: 'row', // Align tags horizontally
+    flexWrap: 'wrap', // Allow tags to wrap to the next line
+    // Add padding or margin if needed to adjust the spacing inside or outside the container
+  },
+  itemContainer: {
+    flexDirection: 'row', // Align items horizontally
+    alignItems: 'center', // Center items vertically within the row
+    marginBottom: 15, // Add some space between each item
+    backgroundColor: COLORS.primary, // Optional: background color for contrast
+    padding: 10, // Padding inside each item for spacing
+    borderRadius: 15,
+  },
+  activityImage: {
+    width: 60, // Fixed width for images
+    height: 60, // Fixed height for images
+    borderRadius: 10, // Make the image rounded
+    marginRight: 10, // Space between image and text
+  },
+  itemTextContainer: {
+    flex: 1, // Take up the remaining space
+  },
+  itemTitle: {
+    fontWeight: 'bold', // Make title bold
+    fontSize: 16, // Slightly larger font for the title
+    marginBottom: 5, // Space between title and date
+  },
+  itemDate: {
+    fontSize: 14, // Smaller font for the date
   },
   // Add any additional styles you might need
 });

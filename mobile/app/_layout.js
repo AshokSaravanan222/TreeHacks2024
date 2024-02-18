@@ -3,6 +3,7 @@ import { createTheme, ThemeProvider } from "@rneui/themed";
 import { Tabs } from 'expo-router';
 import { MaterialCommunityIcons} from '@expo/vector-icons'; 
 import { useRouter } from 'expo-router';
+import { COLORS } from '../constants';
 
 const theme = createTheme({
   lightColors: {
@@ -27,12 +28,12 @@ export default function Layout() {
                   style={{padding: 10}}
                   onPress={() => router.push({
                     pathname: "profile",
-                    params: {id: "456", name: "name", status:"mentee", age: 34, zipCode: "53189", phoneNumber: "16241213213", hobbies: ["cooking", "painting"], curiosity: ["love", "career"], pastActivities: null}
+                    params: {id: "456", name: "Ashok", status:"mentee", age: 19, zipCode: "53189", phoneNumber: "2628992272", hobbies: ["cooking", "painting"], curiosities: ["love", "career"], pastActivities: null}
                 })}
                 />
             ),
             headerTitle: "",
-            headerStyle: { backgroundColor: theme.lightColors.BLUE},
+            headerStyle: { backgroundColor: COLORS.primary},
           }}
           >
           <Tabs.Screen
