@@ -1,6 +1,6 @@
 import React from 'react';
-import { Image, Text} from '@rneui/themed';
-import { View, TouchableOpacity} from 'react-native';
+import {Text} from '@rneui/themed';
+import { View, TouchableOpacity, Image} from 'react-native';
 
 const ProfileCard = ({profile, onPress}) => {
 
@@ -12,7 +12,7 @@ const ProfileCard = ({profile, onPress}) => {
             <Image
                 style={{width:"100%",height:100}}
                 resizeMode="contain"
-                source={{ uri: "https://avatars0.githubusercontent.com/u/32242596?s=460&u=1ea285743fc4b083f95d6ee0be2e7bb8dcfc676e&v=4" }}
+                source={{ uri: "https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166_1280.jpg" }}
             />
             <Text >{name}</Text>
             </View>
