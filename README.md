@@ -1,2 +1,29 @@
-# TreeHacks2024
-Lonify
+# Wisdom Bridge
+## Inspiration
+Our project was inspired by the intersection of Education and Healthcare, focusing on bridging the digital and healthcare information gap for seniors. A revealing dialogue about Japan’s aging demographic shed light on the potential for seniors to actively contribute, challenging their perceived role as passive tech users. We identified a mutual need for connection between seniors, facing isolation, and juniors seeking guidance.
+
+## What it does
+"Wisdom Bridge" is a mobile platform designed to enhance mental health through intergenerational mentorship, seamlessly connecting seniors and juniors for mentorship and shared activities. By leveraging machine learning, it recommends matches based on shared interests, enabling seniors to impart life lessons and juniors to gain valuable insights. The app further suggests personalized activities for each pair, fostering a nurturing environment for growth, companionship, and mutual understanding, thereby demonstrating the achievable goal of bridging the generational gap and empowering both seniors and juniors.
+
+## How we built it
+Our development embraced user-centered design, initiating with Figma wireframes for an intuitive journey. We crafted user personas, integrating Chroma DB for efficient data management and leveraging Native React for seamless backend operations and frontend realization. Key to inclusiveness, we implemented voice control, allowing barrier-free interaction and enhancing user engagement through sophisticated technology use.
+
+## Challenges we ran into
+One of the challenges is to strike a balance between accessibility (e.g., visible font size and straightforward buttons) and modern design trends that are biased toward the preferences of younger populations. To address this, we consistently revisited our app's mission, one of which is ensuring that seniors feel comfortable and at ease when using our app. Consequently, we prioritized our UI based on accessibility guidelines.
+
+Furthermore, a significant technical challenge arose when utilizing ChromaDB as our database platform while building our mobile application with React Native. As ChromaDB operates locally, considerable effort was spent attempting to transmit data to our React Native app. Upon recognizing this compatibility issue, the team established their own server on Express and utilized it as an API to retrieve data in React Native.
+
+## Accomplishments that we're proud of
+We're proud to have created a solution that complements existing ones, effectively identifying a root cause of digital inequality and passivity among the elderly population: the portrayal of this social group as mere recipients of aid by existing enterprises and solutions. Our pioneering app not only addresses this issue but also actively involves the younger population in this solution, facilitating early intergenerational connections.
+
+Moving beyond our initial assumptions about the value of our app, we have analyzed the utility and needs of both senior and young users, further increasing our confidence in its efficacy. We believe that key features such as connecting individuals based on shared interests and fostering intimate discussions on topics aligned with their values will attract and retain users in the long term.
+
+## What we learned
+Firstly, we learned the importance of prioritizing tasks and making swift decisions under pressure during the hackathon. Often, we found ourselves designing the UX/UI based on our own preferences and habits. However, by consistently referring to our defined mission, we learned to prioritize according to our users’ needs. Thus, even if we found the 'save' button aesthetically less pleasing compared to the familiar 'save' icon from Instagram, we had to acknowledge that our main audience might not immediately grasp the icon’s function.
+
+Additionally, we discovered the value of integrating diverse ideas into a cohesive solution that aligns with everyone’s interests and holds potential, especially in terms of practicality and impact. Initially, we spent a considerable amount of time engaging in repetitive discussions without pinpointing the right problem to address. However, by documenting every idea and conducting interviews with individuals familiar with our target audience, such as sponsors and peers in the hackathon, we were able to identify a specific problem and delve into it more deeply.
+
+From a technical standpoint, team members gained valuable experience in managing databases with embedded functions and *navigating through incompatible technologies. In the problem-solving process, they learned how to create their own server and leverage it as a tool to bridge different platforms.
+
+## What's next for Wisdom Bridge
+Looking ahead, we aim to refine "Wisdom Bridge" with advanced recommendation algorithms and enhanced accessibility features, including voice-guided navigation and options for visually impaired users. We plan to engage in beta testing to gather user feedback, seeking partnerships to enrich our activity offerings and establish a commercially viable platform. Our strategy includes leveraging these partnerships not only to diversify the experiences we offer but also as a revenue stream to sustain and grow our platform. Furthermore, we are excited about the potential of generative AI to create personalized activities tailored to the unique interests and needs of each mentor/mentee pair, enhancing the user experience and deepening the connections formed through our app. To gain traction and engage users, we also plan to gamify the platform, introducing elements such as achievements, badges, and challenges that reward interaction and participation. Our vision is to expand "Wisdom Bridge" into a comprehensive platform that not only connects generations but also becomes a cornerstone in supporting mental well-being and societal cohesion, while ensuring its success in the market through strategic monetization and user engagement strategies.
