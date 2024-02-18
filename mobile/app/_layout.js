@@ -93,6 +93,13 @@ export default function Layout() {
             href: null,
           }}
         />
+        <Tabs.Screen
+          // Name of the route to hide.
+          name="voice/index"
+          options={{
+            // This tab will no longer show up in the tab bar.
+          }}
+        />
           </Tabs>
         </ThemeProvider>
       )

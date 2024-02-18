@@ -63,15 +63,14 @@ const Profile = () => {
     setIsLoading(true); // Start loading before fetching data
     setError(null); // Reset error state
     try {
-      const response = await fetch('http://10.19.178.115:8000/user', {
-        method: 'POST',
+      const response = await fetch(`http://10.19.178.115:3000/user/${id}`, {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ "id": id }),
       });
-      if (!response.ok) throw new Error('Something went wrong!'); // Check if the response is ok
       const result = await response.json();
+      console.log(result);
       setData(result);
       setIsLoading(false); // Stop loading after fetching data
     } catch (error) {
@@ -81,7 +80,7 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    getUser(uuidv4);
+    getUser("id3");
   }, []);
 
   if (isLoading) return <Text>Loading...</Text>; // Show loading message
