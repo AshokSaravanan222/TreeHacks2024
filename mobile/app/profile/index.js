@@ -59,16 +59,17 @@ const Profile = () => {
     </View>
   );
 
-  async function getUser(id) {
+  async function getUser(id, role) { // Add role parameter to the function
     setIsLoading(true); // Start loading before fetching data
     setError(null); // Reset error state
     try {
-      const response = await fetch(`http://10.19.178.115:3000/user/${id}`, {
+      const response = await fetch(`http://10.19.178.115:3000/user/${id}?role=${role}`, { // Include role in the query string
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-        },
+        }
       });
+      if (!response.ok) throw new Error('Something went wrong!'); // Check if the response is ok
       const result = await response.json();
       console.log(result);
       setData(result);
@@ -79,8 +80,17 @@ const Profile = () => {
     }
   }
 
+  function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
   useEffect(() => {
-    getUser("id3");
+    // const randomInt = getRandomInt(1, 10);
+    const uuidv4 = "id3";
+    const role = 'mentor'; // Define the role or get it from somewhere
+    getUser(uuidv4, role);
   }, []);
 
   if (isLoading) return <Text>Loading...</Text>; // Show loading message

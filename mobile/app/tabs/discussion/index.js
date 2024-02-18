@@ -1,90 +1,94 @@
-import React, {useState} from 'react';
-import { Text, Button, Dialog, Input} from '@rneui/themed'
-import { FlatList, SafeAreaView, View } from 'react-native'
+import React, { useState, useEffect } from 'react';
+import {SafeAreaView, ActivityIndicator, View, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native'; // Assuming you're using react-navigation
+import MentorMentee from '../../../components/mentormentee/MentorMentee';
+import { Text } from '@rneui/themed';
+// Removed unused imports for clarity
 
-import QuestionCard from '../../../components/common/questionCard/QuestionCard'
-import { router } from 'expo-router'
+const userData = {
+  "items": [
+    {
+      "name": "Leonardo Fibonacci",
+      "age": 84,
+      "zipcode": "94016",
+      "experiences_to_share": "Discovering patterns in nature and applying mathematical principles.",
+      "key_skill_to_teach": "Mathematical thinking and application.",
+      "personality": "Analytical, curious, insightful",
+      "activity_to_try": "Math puzzles and games",
+      "valued_advice": "Nature is the best teacher."
+    },
+    {
+      "name": "Grace Hopper",
+      "age": 63,
+      "zipcode": "90210",
+      "experiences_to_share": "Pioneering computer programming and developing early compilers.",
+      "key_skill_to_teach": "Programming fundamentals and computational thinking.",
+      "personality": "Innovative, persistent, clear",
+      "activity_to_try": "Coding bootcamp",
+      "valued_advice": "The most dangerous phrase in the language is, 'We've always done it this way.'"
+    },
+    {
+      "name": "Steve Rogers",
+      "age": 67,
+      "zipcode": "10001",
+      "experiences_to_share": "Leading teams through adversity and championing justice.",
+      "key_skill_to_teach": "Teamwork and ethical leadership.",
+      "personality": "Brave, honorable, selfless",
+      "activity_to_try": "Team-building exercises",
+      "valued_advice": "Do the right thing, even when it's hard."
+    }
+  ]
+};
 
 const Discussion = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  // Assuming you will fetch some data and store it in state
+  const [data, setData] = useState([]);
 
-    const questionData = { "items" : [
-        {
-            "question" : "How does one play tennis?",
-            "profile": {
-                "id" : "456",
-                "name": "Ash2",
-                "age": 42,
-                "zipCode" : "53189",
-                "phoneNumber": "2328992272",
-                "bio" : "Short Bio"
-            }
-        },
-        {
-            "question" : "How do I catch a dub?",
-            "profile": {
-                "id" : "23423",
-                "name": "Joe",
-                "age": 23,
-                "zipCode" : "23424",
-                "phoneNumber": "2328992272",
-                "bio" : "Longer Bio"
-            }
-        }
-    ]
-    }
+  // I've removed the fetch logic for brevity, make sure to include your fetch logic here
+  useEffect(() => {
+    // Fetch your data here
+    // For demonstration, let's use the static `userData`
+    setData(userData.items); // You would fetch data here
+  }, []);
 
-    const [question, setQuestion] = useState("There was no question.");
+  // If isLoading is true, show loading indicator
+  if (isLoading) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <ActivityIndicator size="large" />
+      </SafeAreaView>
+    );
+  }
 
-    const [visible1, setVisible1] = useState(false);
-  
-    const toggleDialog1 = () => {
-      setVisible1(!visible1);
-    };
+  // If there is an error, show error message
+  if (error) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.errorText}>Error: {error}</Text>
+      </SafeAreaView>
+    );
+  }
 
-    async function addQuestion() {
-        // call the api to add
-    }
-
+  // Main content
   return (
-    <SafeAreaView>
-      <FlatList 
-        data = {questionData.items}
-        renderItem={({item}) => <QuestionCard question = {item.question} profile={item.profile} onPress={() => router.push({
-            pathname: "profile",
-            params: {id: item.profile.id, name: item.profile.name, age: item.profile.age, phoneNumber: item.profile.phoneNumber, phoneNumber: item.profile.phoneNumber, bio: item.profile.bio}
-        })}/>}
-        keyExtractor={item => item.profile.id}
-        ListHeaderComponent={
-          <Text>These are the discussions</Text>
-        }
-        ListFooterComponent={
-            <View>
-            <Button 
-                title={"Add a question"}
-                onPress={toggleDialog1}
-            />
-            <Dialog
-              isVisible={visible1}
-              onBackdropPress={toggleDialog1}
-            >
-              <Dialog.Title title="Your Question"/>
-              <Input
-                placeholder="Question"
-                leftIcon={{ type: 'font-awesome', name: 'comment' }}
-                onChangeText={value => setQuestion(value)}
-              />
-              <Button 
-                onPress={() => {
-                  toggleDialog1();
-                  addQuestion()
-                }}
-              />
-            </Dialog>
-            </View>
-          }
-      />
+    <SafeAreaView style={styles.container}>
+      <MentorMentee data={data} />
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default Discussion
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 16,
+  },
+});
+
+export default Discussion;

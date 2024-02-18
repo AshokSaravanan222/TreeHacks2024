@@ -1,50 +1,25 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import {SafeAreaView, ActivityIndicator, View, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native'; // Assuming you're using react-navigation
+import MentorMentee from '../../../components/mentormentee/MentorMentee';
 import { Text } from '@rneui/themed';
-import Component from "../../../components/MyComponent";
-import { SafeAreaView, FlatList } from 'react-native';
-import ProfileCard from '../../../components/common/profileCard/ProfileCard';
-import { useRouter } from 'expo-router';
-
-const profileData = {"items" : [
-  {
-    "id" : "456",
-    "name": "Ash2",
-    "age": 42,
-    "zipCode" : "53189",
-    "phoneNumber": "2328992272",
-    "bio" : "Short Bio"
-  },
-  {
-    "id" : "23423",
-    "name": "Joe",
-    "age": 23,
-    "zipCode" : "23424",
-    "phoneNumber": "2328992272",
-    "bio" : "Longer Bio"
-  }
-]
-}
+import Heading from '../../../components/heading/Heading';
+// Removed unused imports for clarity
 
 const Home = () => {
 
-  const router = useRouter();
-
+  // Main content
   return (
-    <SafeAreaView>
-      <FlatList 
-        data = {profileData.items}
-        renderItem={({item}) => <ProfileCard profile={item} onPress={() => router.push({
-          pathname: "profile",
-          params: {id: item.id, name: item.name, age: item.age, phoneNumber: item.phoneNumber, phoneNumber: item.phoneNumber, bio: item.bio}
-      })}/>}
-        keyExtractor={item => item.id}
-        ListHeaderComponent={
-          <Text>These are the profiles</Text>
-        }
+    <SafeAreaView style={styles.container}>
+      <Heading 
+        text={"Home"}
       />
     </SafeAreaView>
+  );
+};
 
-  )
-}
+const styles = StyleSheet.create({
+
+});
 
 export default Home;

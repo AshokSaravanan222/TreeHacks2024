@@ -13,7 +13,7 @@ const Comment = ({ text }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f0f0f0', // Light grey color
+    backgroundColor: COLORS.primary, // Light grey color
     padding: 10, // Inner padding for the text
     margin: 10, // Outer margin to separate the comments
     borderRadius: 20, // Rounded corners

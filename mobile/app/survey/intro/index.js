@@ -20,7 +20,7 @@ const Intro = () => {
           containerStyle={styles.input}
         />
       </View>
-      <View style={styles.buttonContainer}>
+      <View style={styles.buttonContainer}> 
         <NextButton navigateTo={() => router.push({
           pathname: "survey/mentetor",
           params: { name: name }

@@ -40,7 +40,7 @@ const Mentor = () => {
         />
         <Chip
           title="Mentor"
-          disabled={!isChipTwoEnabled}
+          disabled={!isChipOneEnabled}
           onPress={handleChipTwoPress}
           containerStyle={styles.chip}
         />

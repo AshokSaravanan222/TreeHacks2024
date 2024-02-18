@@ -4,6 +4,8 @@ import { Tabs } from 'expo-router';
 import { MaterialCommunityIcons} from '@expo/vector-icons'; 
 import { useRouter } from 'expo-router';
 import { COLORS } from '../constants';
+import { SimpleLineIcons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const theme = createTheme({
   lightColors: {
@@ -20,6 +22,9 @@ export default function Layout() {
     return (
         <ThemeProvider theme={theme}>
           <Tabs screenOptions={{
+            tabBarStyle : {
+              backgroundColor: COLORS.primary,
+            },
             headerRight: () => (
               <MaterialCommunityIcons
                   name={'account'}
@@ -36,7 +41,18 @@ export default function Layout() {
             headerStyle: { backgroundColor: COLORS.primary},
           }}
           >
-          <Tabs.Screen
+      <Tabs.Screen
+        // Name of the route to hide.
+        name="tabs/discussion"
+        options={{
+          // This tab will no longer show up in the tab bar.
+          title: "Feed",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="people-outline" size={size} color={color} />
+          ),
+        }}
+      />
+        <Tabs.Screen
         // Name of the route to hide.
             name="tabs/home"
             options={{
@@ -47,28 +63,17 @@ export default function Layout() {
               ),
             }}
           />
-          <Tabs.Screen
+      <Tabs.Screen
         // Name of the route to hide.
             name="tabs/activities"
             options={{
               // This tab will no longer show up in the tab bar.
               title: "Activities",
               tabBarIcon: ({ color, size }) => (
-                <MaterialCommunityIcons name="cards-playing" size={size} color={color} />
+                <SimpleLineIcons name="puzzle" size={size} color={color}/>
               ),
             }}
           />
-          <Tabs.Screen
-        // Name of the route to hide.
-        name="tabs/discussion"
-        options={{
-          // This tab will no longer show up in the tab bar.
-          title: "Feed",
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="message-outline" size={size} color={color} />
-          ),
-        }}
-      />
         <Tabs.Screen
           // Name of the route to hide.
           name="index"

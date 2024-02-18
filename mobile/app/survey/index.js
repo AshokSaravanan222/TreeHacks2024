@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { View, StyleSheet} from 'react-native'
-import { Text, Button, Input} from '@rneui/base'
+import { Text, Button, Input} from '@rneui/themed'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 
 import Heading from '../../components/heading/Heading'
