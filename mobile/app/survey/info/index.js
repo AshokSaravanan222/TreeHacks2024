@@ -14,11 +14,14 @@ const Info = () => {
 
   return (
 
-    <View style={{flex: 1,
-        alignItems: "center",
-        justifyContent: "center",}}>
-    <Heading text={"I will ask a few questions to get to know you."}/>
-    <Text >{"Note that you can skip the question"}</Text>
+    <View style={{
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 20, // Add horizontal padding to the container
+    }}>
+    <Heading text={"We will ask a few questions to get to know you."}/>
+    <Text style={{fontSize: 20, fontWeight: 300}}>{"Note that you can skip the questions asked if you do not feel comfortable answering them."}</Text>
 
     <NextButton navigateTo={() => router.push("survey")} />
     </View>

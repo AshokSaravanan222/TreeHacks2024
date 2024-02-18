@@ -1,6 +1,8 @@
 import React from 'react';
-import { Text, View, FlatList, SafeAreaView, StyleSheet } from 'react-native';
-import { Image } from '@rneui/themed'; // Make sure you have this import for the Image component
+import {View, FlatList, SafeAreaView, StyleSheet, Image} from 'react-native';
+import { Text } from '@rneui/themed'; // Make sure you have this import for the Image component
+import Heading from '../../../components/heading/Heading';
+import { COLORS } from '../../../constants';
 
 const Activities = () => {
   const Activity = ({ name, description, imageUrl }) => {
@@ -48,7 +50,7 @@ const Activities = () => {
           />
         )}
         keyExtractor={item => item.id}
-        ListHeaderComponent={<Text style={styles.headerText}>These are the activities</Text>}
+        ListHeaderComponent={<Heading text={"Activites"}/>}
       />
     </SafeAreaView>
   );
@@ -59,8 +61,9 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     borderWidth: 1,
     borderColor: '#000000',
-    backgroundColor: 'rgba(255, 255, 255, 1)',
+    backgroundColor: COLORS.primary,
     marginBottom: 10, // Add some space between items
+    marginHorizontal: 15, // Add space to the left and right
   },
   activityImage: {
     width: '100%',

@@ -1,6 +1,6 @@
 import React from 'react'
 import { createTheme, ThemeProvider } from "@rneui/themed";
-import { Tabs } from 'expo-router';
+import { Tabs, Slot} from 'expo-router';
 import { MaterialCommunityIcons} from '@expo/vector-icons'; 
 import { useRouter } from 'expo-router';
 import { COLORS } from '../constants';
@@ -28,7 +28,7 @@ export default function Layout() {
             headerRight: () => (
               <MaterialCommunityIcons
                   name={'account'}
-                  color={theme.lightColors.WHITE}
+                  color={COLORS.secondary}
                   size={24}
                   style={{padding: 10}}
                   onPress={() => router.push({

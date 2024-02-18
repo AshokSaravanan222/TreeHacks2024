@@ -14,6 +14,11 @@ const Home = () => {
       <Heading 
         text={"Home"}
       />
+
+      <Text>Upcoming Events</Text>
+      <Text>Mentor Request</Text>
+      <Text>Activites Request</Text>
+      <Text>Past Activites</Text>
     </SafeAreaView>
   );
 };

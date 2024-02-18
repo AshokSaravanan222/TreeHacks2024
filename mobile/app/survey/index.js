@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import { View, StyleSheet} from 'react-native'
 import { Text, Button, Input} from '@rneui/themed'
-import { useLocalSearchParams, useRouter } from 'expo-router'
+import { useLocalSearchParams, useRouter, Tabs} from 'expo-router'
+import { COLORS } from '../../constants'
 
 import Heading from '../../components/heading/Heading'
 import Comment from '../../components/comment/Comment'
