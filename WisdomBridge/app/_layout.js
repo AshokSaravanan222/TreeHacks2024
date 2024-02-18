@@ -27,7 +27,7 @@ export default function Layout() {
                   style={{padding: 10}}
                   onPress={() => router.push({
                     pathname: "profile",
-                    params: {id: "456", name: "name", age: 34, zipCode: "53189", phoneNumber: "16241213213", bio: "hey!"}
+                    params: {id: "456", name: "name", status:"mentee", age: 34, zipCode: "53189", phoneNumber: "16241213213", hobbies: ["cooking", "painting"], curiosity: ["love", "career"], pastActivities: null}
                 })}
                 />
             ),
