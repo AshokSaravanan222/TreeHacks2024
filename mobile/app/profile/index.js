@@ -1,40 +1,46 @@
-import React, {useState} from 'react';
-import { Text } from '@rneui/themed';
+import React, { useEffect, useState } from 'react';
+import { Text, StyleSheet, ScrollView, View, SafeAreaView, FlatList, Image } from 'react-native';
+import { Avatar, Button } from '@rneui/themed';
 import { useLocalSearchParams } from 'expo-router';
-import { Avatar, Button, Dialog, Input, Tile, Icon} from '@rneui/themed';
-import { StyleSheet, ScrollView, View, SafeAreaView, FlatList, Image} from 'react-native';
-import { COLORS, FONT, SIZES} from '../../constants';
+import uuid from 'react-native-uuid';
+import { COLORS, FONT, SIZES } from '../../constants';
 
-const activites = {"items": [{
-  "date" : "02-05-03",
-  "name" : "Picnic",
-  "imgUrl" : "https://awildgeographer.files.wordpress.com/2015/02/john_muir_glacier.jpg"
-},
-{
-  "date" : "02-05-03",
-  "name" : "Picnic",
-  "imgUrl" : "https://awildgeographer.files.wordpress.com/2015/02/john_muir_glacier.jpg"
-}]}
+const activities = {
+  "items": [{
+    "date": "02-05-03",
+    "name": "Picnic",
+    "imgUrl": "https://awildgeographer.files.wordpress.com/2015/02/john_muir_glacier.jpg"
+  },
+  {
+    "date": "02-05-03",
+    "name": "Picnic",
+    "imgUrl": "https://awildgeographer.files.wordpress.com/2015/02/john_muir_glacier.jpg"
+  }]
+};
 
 const Profile = () => {
   const params = useLocalSearchParams();
-  const {id, name, status, age, zipCode, phoneNumber, hobbies, curiosities, pastActivities} = params;
+  const { id, name, status, age, zipCode, phoneNumber, hobbies, curiosities, pastActivities } = params;
 
   const hobbiesArr = hobbies.split(",");
   const curiositiesArr = curiosities.split(",");
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [btnTitle, setBtnTitle] = useState("Connect")
+  const [isConnectLoading, setIsConnectLoading] = useState(false);
+  const [btnTitle, setBtnTitle] = useState("Connect");
   const [buttonColor, setButtonColor] = useState(COLORS.secondary); // Default color
+  const [data, setData] = useState(null); // Data from the API
+  const [isLoading, setIsLoading] = useState(false); // Loading state for the API call
+  const [error, setError] = useState(null); // Error state for the API call
+
+  const uuidv4 = uuid.v4();
 
   const handlePress = async () => {
-    setIsLoading(true); // Start loading
-    // Simulate an API call
+    setIsConnectLoading(true);
     setTimeout(() => {
-      setIsLoading(false); // Stop loading
+      setIsConnectLoading(false);
       setBtnTitle("Pending");
-      setButtonColor(COLORS.tertiary); // Change color to green (or any other color) after finishing
-    }, 2000); // Simulate API delay
+      setButtonColor(COLORS.tertiary);
+    }, 2000);
   };
 
   const Item = ({ title, date, imgUrl }) => (
@@ -52,7 +58,34 @@ const Profile = () => {
       </View>
     </View>
   );
-  
+
+  async function getUser(id) {
+    setIsLoading(true); // Start loading before fetching data
+    setError(null); // Reset error state
+    try {
+      const response = await fetch('http://10.19.178.115:8000/user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ "id": id }),
+      });
+      if (!response.ok) throw new Error('Something went wrong!'); // Check if the response is ok
+      const result = await response.json();
+      setData(result);
+      setIsLoading(false); // Stop loading after fetching data
+    } catch (error) {
+      setError(error.toString()); // Set error state
+      setIsLoading(false); // Stop loading on error
+    }
+  }
+
+  useEffect(() => {
+    getUser(uuidv4);
+  }, []);
+
+  if (isLoading) return <Text>Loading...</Text>; // Show loading message
+  if (error) return <Text>Error: {error}</Text>; // Show error message
 
   return (
     <SafeAreaView>
@@ -89,7 +122,7 @@ const Profile = () => {
         <View style={styles.pastActivities}>
         <Text style={styles.category}>{`Past Activities`}</Text>
         <FlatList
-          data={activites.items}
+          data={activities.items}
           renderItem={({item}) => <Item title={item.name} date={item.date} imgUrl={item.imgUrl} />}
           horizontal
         />
@@ -107,7 +140,7 @@ const Profile = () => {
         }}
         disabledTitleStyle={{ color: COLORS.tertiary }}
         iconContainerStyle={{ background: '#000' }}
-        loading={isLoading} // Use the isLoading state
+        loading={isConnectLoading} // Use the isLoading state
         onPress={handlePress} // Use the new handlePress function
         title={btnTitle} // Hide title when loading
         titleStyle={{ marginHorizontal: 5 }}
@@ -163,7 +196,6 @@ const styles = StyleSheet.create({
   },
   category: {
     overflow: 'hidden',
-    fontFamily: 'Inter',
     fontSize: 25,
     fontWeight: 'bold',
     textAlign: 'left',
