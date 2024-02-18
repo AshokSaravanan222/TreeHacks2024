@@ -33,6 +33,12 @@ const Activities = () => {
         "description": "Let's play soccer together!",
         "topic": "Soccer",
         "image": "https://images.squarespace-cdn.com/content/v1/51f7fb1ee4b03d20c9b4c34b/1391517568123-8S0ZR6MB6G2FKKG5QIJR/cookbook-dumplings.jpg?format=2500w"
+      },
+      {
+        "id": "activity3",
+        "description": "Let's go for a hike together!",
+        "topic": "Hiking",
+        "image": "https://images.squarespace-cdn.com/content/v1/51f7fb1ee4b03d20c9b4c34b/1391517568123-8S0ZR6MB6G2FKKG5QIJR/cookbook-dumplings.jpg?format=2500w"
       }
     ]
   };
